@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
@@ -14,6 +15,7 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private float gravityValue = -9.81f;
     private PlayerControl playerInput;
+    
 
     private void Awake()
     {
@@ -64,5 +66,17 @@ public class Controller : MonoBehaviour
 
         //playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Wall")
+        {
+
+            Debug.Log("WALLLLLL");
+        }
     }
 }
+
