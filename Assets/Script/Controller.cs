@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -14,6 +15,9 @@ public class Controller : MonoBehaviour
     private Color OriginalColor;
     private PlayerControl playerInput;
     private float resetInterval;
+    private CinemachineImpulseSource impulseSource;
+    private float impulseforce = 1f;
+    private bool timeFreeze;
 
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private Animator animator;
@@ -31,6 +35,10 @@ public class Controller : MonoBehaviour
 
     private void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
         //Ult.gameObject.SetActive(false);
         barManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<BarManager>();
         resetInterval = shootInterval;
@@ -39,6 +47,7 @@ public class Controller : MonoBehaviour
         controller =GetComponent<CharacterController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         OriginalColor = spriteRenderer.material.color;
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void OnEnable()
@@ -84,15 +93,18 @@ public class Controller : MonoBehaviour
         {
             Health = 5;
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
+            if (isImmune) return;
+            cameraShake(impulseSource);
+            HitPause.instance.hitStop(0.2f);
             Debug.Log("Hit an Enemy");
             Health -= 2;
-            //StartCoroutine(BriefTimeFreezeAfterTakingDamage());
             barManager.takeDamage(2);
             StartCoroutine(immuneCountdown(2f));
             GetHealth();
@@ -113,11 +125,16 @@ public class Controller : MonoBehaviour
         }
     }
 
+    public void SpecialSkillButton()
+    {
+        shooting.SpecialSkillFire();
+    }
+/*
     public void dodgeButton()
     {
         StartCoroutine(immuneCountdown(1f));
 
-    }
+    }*/
 
     public void UltButton()
     {
@@ -127,12 +144,13 @@ public class Controller : MonoBehaviour
     IEnumerator immuneCountdown(float duration)
     {
         isImmune = true;
-        barManager.DodgeButton.interactable = false;
+        //barManager.SpecialBullet.interactable = false;
         spriteRenderer.material.color = Color.black;
         Physics.IgnoreLayerCollision(playerLayer, enemyLayer, true);
         yield return new WaitForSeconds(duration);
+
         isImmune = false;
-        barManager.DodgeButton.interactable = true;
+        //barManager.SpecialBullet.interactable = true;
         Physics.IgnoreLayerCollision(playerLayer, enemyLayer, false);
         spriteRenderer.material.color = OriginalColor;
     }
@@ -147,16 +165,10 @@ public class Controller : MonoBehaviour
         Destroy(ultimate);
     }
 
-    IEnumerator BriefTimeFreezeAfterTakingDamage()
+    void cameraShake(CinemachineImpulseSource playerInputSource)
     {
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(0.1f);
-        Time.timeScale = 1;
+        playerInputSource.GenerateImpulseWithForce(impulseforce);
     }
-
-    /*private void OpenUltimate()
-    {
-    }*/
 
     public int GetHealth()
     {

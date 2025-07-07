@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletLifetime: 1
+  bulletParticle: {fileID: 1621055121311586799, guid: 9119b8443f8988946998a3d27f11db6a, type: 3}
 --- !u!65 &-2679699512178903897
 BoxCollider:
   m_ObjectHideFlags: 0

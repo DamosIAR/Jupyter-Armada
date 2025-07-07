@@ -23,7 +23,7 @@ public class GameStateManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        state = State.Tutorial;
+        state = State.CountdownToStart;
     }
 
 
@@ -31,31 +31,39 @@ public class GameStateManager : MonoBehaviour
     {
         switch(state)
         {
-            case State.Tutorial:
-                if(Input.touchCount > 0)
+            /*case State.Tutorial:
+                if (Input.touchCount > 0)
                 {
                     state = State.CountdownToStart;
                     OnStateChanged?.Invoke(this, new EventArgs());
                 }
-                break;
+                break;*/
             case State.CountdownToStart:
+                Time.timeScale = 1f;
                 countdownToStartTimer -= Time.deltaTime;
-                if(countdownToStartTimer <= 0)
+                if (countdownToStartTimer <= 0)
                 {
                     state = State.Playing;
                     OnStateChanged?.Invoke(this, new EventArgs());
                 }
                 break;
             case State.Playing:
-                if(Controller.Instance.GetHealth() <= 0)
+                if (Controller.Instance.GetHealth() <= 0)
                 {
                     state = State.GameOver;
                     OnStateChanged?.Invoke(this, new EventArgs());
                 }
                 break;
             case State.GameOver:
+                Time.timeScale = 0.5f;
+                GameOverandRetry.instance.GameOverFadeIn();
                 break;
         }
+    }
+
+    public void GetState()
+    {
+        
     }
 
     public bool isTutorial()
@@ -71,6 +79,11 @@ public class GameStateManager : MonoBehaviour
     public bool isPlaying()
     {
         return state == State.Playing;
+    }
+
+    public bool IsGameOver()
+    {
+        return state == State.GameOver;
     }
 
 }

@@ -11,8 +11,11 @@ public class ScoreManager : MonoBehaviour
     public int score;
     public TextMeshProUGUI TextScore;
 
+    public static ScoreManager instance;
+
     private void Start()
     {
+        if (instance == null) instance = this;
         //EnemyManager = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyManager>();
         score = 0;
         TextScore.text = "Score: " + score;
@@ -22,6 +25,11 @@ public class ScoreManager : MonoBehaviour
     {
         score += scoreToAdd;
         TextScore.text = "Score: " + score;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
 }

@@ -169,7 +169,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Vertical_Rectangle_Green-removebg-preview_upscaled_0: -8451501042623133150
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

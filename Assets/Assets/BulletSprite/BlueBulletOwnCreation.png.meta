@@ -265,7 +265,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BlueBulletOwnCreation_0: 4339933506282501370
+      BlueBulletOwnCreation_1: 2824825693752430044
+      BlueBulletOwnCreation_2: -2366313434630985230
+      BlueBulletOwnCreation_3: -458032508459903199
+      BlueBulletOwnCreation_4: -2988943944517328222
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

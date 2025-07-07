@@ -20,7 +20,9 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        force = (Random.Range(7f, 10f) * Time.deltaTime) * 100;
+        if (GameStateManager.Instance.isCountdownToStart()) return;
+        //(Random.Range(7f, 8f) * Time.deltaTime) * 100
+        force = 5;
         Vector2 leftRight = transform.position;
 
         spawnInterval -= Time.deltaTime;

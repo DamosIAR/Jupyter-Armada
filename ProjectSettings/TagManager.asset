@@ -12,6 +12,7 @@ TagManager:
   - Manager
   - Health
   - Ult
+  - SpecialBullet
   layers:
   - Default
   - TransparentFX

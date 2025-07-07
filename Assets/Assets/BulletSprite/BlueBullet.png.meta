@@ -409,7 +409,18 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BlueBullet_0: -6338813605764342637
+      BlueBullet_1: -5760388565582657794
+      BlueBullet_10: 5297614652082678722
+      BlueBullet_2: 930272880854198195
+      BlueBullet_3: -187780408281825264
+      BlueBullet_4: 8152767106080548369
+      BlueBullet_5: -8762331624951609451
+      BlueBullet_6: 2810789938933533170
+      BlueBullet_7: 2657812144666696177
+      BlueBullet_8: -6861966850269707382
+      BlueBullet_9: 3734652025759355058
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
